@@ -1,0 +1,21 @@
+{
+  "name": "emc-hackathon-tweets",
+  "version": "1.0.0",
+  "description": "display tweets",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "EMC",
+  "dependencies": {
+    "asyncawait": "^1.0.6",
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "request": "^2.74.0",
+    "request-promise": "^3.0.0",
+    "rest-client": "^0.1.5"
+  },
+  "devDependencies": {}
+}
