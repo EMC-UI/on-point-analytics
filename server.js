@@ -5,6 +5,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var restClient = require('request-promise');
+var fs = require('file-system');
 
 module.exports = (function() {
   // todo it would be better to read this in from a file that isn't checked in
@@ -15,7 +16,7 @@ module.exports = (function() {
 
   // this will get updated when /auth is called
   var twitterAuthToken = 'AAAAAAAAAAAAAAAAAAAAAA9LtwAAAAAAeihb7UwP%2B6hq8GZBlS0HKH%2Bu1qs%3DWAzj5p8Aq67HPskRnFi6ydvN0nogHIyH8Vg4znGo2dDiruNncC';
-  var twitterSearchString = 'from:guychurchward OR @emc OR #emc'
+  var twitterSearchString = '@VMware OR #VMware OR #VMworld'
 
 
   var app = express();
@@ -79,6 +80,7 @@ module.exports = (function() {
   }
 
 
+ 
 
   var getTweets = function(req, res) {
     let searchTweetsReq = {
@@ -89,14 +91,20 @@ module.exports = (function() {
       'uri': twitterSearchAPI,
       'qs': {
         'q': twitterSearchString,
-        'count': 50
+        'count': 100 
       },
       json: true
     }
 
     restClient(searchTweetsReq)
       .then((tweets) => {
-        console.log(JSON.stringify(tweets, null, '  '))
+        //console.log(JSON.stringify(tweets, null, '  '))
+        console.log(tweets.statuses.length)
+        for(var i = 0; i < 100; i++){
+           console.log(JSON.stringify(tweets.statuses[0]).replace(/\n|\r\n|\r/g,''));
+           let oneCleanTweet = JSON.stringify(tweets.statuses[0]).replace(/\n|\r\n|\r/g,'')
+           fs.appendFile('tweets-vmware.json', oneCleanTweet + '\n');
+        }
         res.json(tweets)
       })
       .catch((err) => {
