@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular-messages/angular-messages.min.js"></script>
+        <script src="bower_components/underscore/underscore.js"></script>
+        <script src="js/app.js"></script>
+    </head>
+
+    <body ng-controller="mainCtrl" ng-app="app">
+
+        <div id="left">
+
+
+            <div data-ng-repeat="mode in widgetMode track by mode.id">
+                <label>
+                    <input
+                        name="widgetMode"
+                        type="radio"
+                        ng-value="{{mode.id}}"
+                        ng-model="$parent.widgetModeActive" />
+                    {{mode.name}}
+                </label>
+            </div>
+
+            <select name="prevDays" required
+                ng-options="option.name for option in prevDays.availableOptions track by option.days"
+                ng-model="prevDays.selectedOption"
+                ng-change="loadCounts(prevDays.selectedOption.days)"></select>
+
+
+            <span ng-repeat="item in views track by $index" class="circle" ng-class="{active: view == item.id}" ng-click="setView(item.id)">
+                <span style="vertical-align:-2.5em;"><b>{{ item.name }}</b></span>
+            </span>
+        </div>
+
+        <div id="right">
+
+            <div ng-controller="TweetStatsCtrl" ng-if="view == 0">
+                <h1>Conference twitter keywords</h1>
+
+                <h2> EMCworld mentioned {{emcWorldCount}} times. {{emcWorldPercentage}}%</h2>
+                    <div class="container">
+                        <div class="bar" style="width: {{emcWorldPercentage}}%"></div>
+                    </div>
+                <br/>
+
+                <h2> VMworld mentioned {{vmWorldCount}} times. {{vmWorldPercentage}}%</h2>
+                    <div class="container">
+                        <div class="bar" style="width: {{vmWorldPercentage}}%"></div>
+                    </div>
+                <br/>
+
+                <h2> Flash mentioned {{flashCount}} times. {{flashPercentage}}%</h2>
+                <div class="container">
+                    <div class="bar" style="width: {{flashPercentage}}%"></div>
+                </div>
+                <br/>
+
+                <h2> vCloud mentioned {{vcloudCount}} times. {{vcloudPercentage}}%</h2>
+                <div class="container">
+                    <div class="bar" style="width: {{vcloudPercentage}}%"></div>
+                </div>
+                <br/>
+
+                <h2> Avamar mentioned {{avamarCount}} times. {{avamarPercentage}}%</h2>
+                <div class="container">
+                    <div class="bar" style="width: {{avamarPercentage}}%"></div>
+                </div>
+                <br/>
+
+                <h2> VCenter mentioned {{vcenterCount}} times. {{vcenterPercentage}}%</h2>
+                <div class="container">
+                    <div class="bar" style="width: {{vcenterPercentage}}%"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
