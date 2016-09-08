@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "description": "display tweets",
   "main": "server.js",
-  "scripts": {
+  "author": "OnPoint Team",
+  "license": "MIT",
+  "engines": {
+        "node": ">=0.10"
+    }, 
+ "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
